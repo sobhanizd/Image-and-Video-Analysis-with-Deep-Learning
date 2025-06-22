@@ -1,3 +1,8 @@
 <div class="video-item">
   <img [src]="thumbnailUrl" alt="Scene Thumbnail" />
+  <div class="video-item-overlay">
+    <div class="video-item-info">
+      <span class="video-item-time">{{ getTimeString() }}</span>
+    </div>
+  </div>
 </div>

@@ -1,4 +1,457 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
+
+@keyframes fadeInAndExpand {
+  from {
+    opacity: 0;
+    transform: scale(0.25);
+  }
+  50% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  50% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(720deg);
+  }
+  to {
+    transform: rotate(1440deg);
+  }
+}
+
+.spin-animation {
+  animation: spin 2s ease-in-out infinite;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: #1e1e1e;
+}
+
+html::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+}
+
+body {
+  background-color: #1e1e1e;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Rubik", sans-serif;
+  color: #5a5a5a;
+  font-weight: 400;
+}
+
+body input, body h1, body a {
+  color: #5a5a5a;
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Main app container */
+.container {
+  overflow: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Background with blur effect */
+.app-background {
+  height: 100vh;
+  left: 0px;
+  opacity: 0.4;
+  position: fixed;
+  top: 0px;
+  width: 100vw;
+  z-index: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.app-background.searching {
+  transform: scale(1.25);
+}
+
+.app-background-image-filter {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+}
+
+/* Search bar styling */
+.search-bar-aligner {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  pointer-events: none;
+  position: fixed;
+  transition: height 250ms;
+  width: 100%;
+  z-index: 3;
+}
+
+.search-bar-aligner.searching {
+  height: 100px;
+}
+
+.search-bar-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 10px;
+  width: 500px;
+  pointer-events: all;
+}
+
+.search-bar {
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+  position: relative;
+  width: calc(100% - 20px);
+}
+
+.search-bar-logo {
+  color: white;
+  flex-shrink: 0;
+  font-size: 0.9em;
+  height: 20px;
+  line-height: 20px;
+  padding: 5px;
+  padding-right: 10px;
+  position: relative;
+  text-align: center;
+  width: 14px;
+}
+
+.search-bar-logo:after {
+  background-color: white;
+  border-radius: 3px;
+  content: "";
+  height: 3px;
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: height 250ms, width 250ms, right 250ms, background-color 250ms;
+  width: 3px;
+}
+
+.search-bar.focused .search-bar-logo:after,
+.search-bar.querying .search-bar-logo:after,
+.search-bar.searching .search-bar-logo:after {
+  background-color: rgba(255, 255, 255, 0.25);
+  height: 20px;
+  right: 0px;
+  width: 1px;
+}
+
+.search-bar-input {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1em;
+  height: 20px;
+  outline: none;
+  padding: 10px 0px;
+  text-align: left;
+  transition: width 250ms;
+  width: 54px;
+  flex: 1;
+}
+
+.search-bar.focused .search-bar-input,
+.search-bar.querying .search-bar-input,
+.search-bar.searching .search-bar-input {
+  width: 100%;
+}
+
+.search-bar-input::placeholder {
+  color: white;
+}
+
+.search-bar.focused .search-bar-input::placeholder,
+.search-bar.querying .search-bar-input::placeholder,
+.search-bar.searching .search-bar-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.search-bar-button {
+  background-color: transparent;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  flex-shrink: 0;
+  height: 30px;
+  outline: none;
+  padding: 5px;
+  position: relative;
+  width: 30px;
+  z-index: 3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar-button:hover,
+.search-bar-button:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.search-bar-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Video list styling */
+.video-list-container {
+  margin: auto;
+  margin-top: 130px;
+  max-width: 1000px;
+  position: relative;
+  z-index: 2;
+}
+
+.video-list {
+  display: grid;
+  gap: 10px;
+  grid-auto-rows: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  padding: 10px;
+  padding-bottom: 50px;
+}
+
+.video-row {
+  margin-bottom: 30px;
+}
+
+.video-title {
+  color: white;
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-bottom: 15px;
+  padding: 0 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.video-thumbnails {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+/* Video item styling */
+.video-item {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 250ms, box-shadow 250ms;
+  aspect-ratio: 16/9;
+}
+
+.video-item:hover {
+  transform: translateY(-5px);
+  box-shadow: rgba(50, 50, 93, 0.35) 0px 60px 120px -20px, rgba(0, 0, 0, 0.4) 0px 40px 80px -30px;
+}
+
+.video-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 250ms;
+}
+
+.video-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Video item overlay */
+.video-item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 15px 10px 10px;
+  opacity: 0;
+  transition: opacity 250ms;
+}
+
+.video-item:hover .video-item-overlay {
+  opacity: 1;
+}
+
+.video-item-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.video-item-time {
+  color: white;
+  font-size: 0.8em;
+  font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 4px 8px;
+  border-radius: 4px;
+  backdrop-filter: blur(5px);
+}
+
+/* Loading spinner styling */
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  color: white;
+  font-size: 2em;
+}
+
+.loading-spinner-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner-content {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.loading-spinner-icon {
+  font-size: 2.5em;
+  color: white;
+}
+
+.loading-spinner-text {
+  color: white;
+  font-size: 1.1em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive design */
+@media (max-width: 1000px) {
+  .video-list {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+  
+  .video-thumbnails {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .video-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .video-thumbnails {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .search-bar-wrapper {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 500px) {
+  .video-list {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+  
+  .video-thumbnails {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+  
+  .search-bar-wrapper {
+    width: 95%;
+  }
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeInAndExpand 250ms ease-in;
+}
+
+.fade-in-left {
+  animation: fadeInFromLeft 250ms ease-in;
+}
+
+/* Utility classes */
+.text-white {
+  color: white;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.p-10 {
+  padding: 10px;
+}

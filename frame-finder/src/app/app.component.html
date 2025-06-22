@@ -1,6 +1,22 @@
 <div class="container">
-  <app-search-bar [loading]="loading" (search)="onSearch($event)"></app-search-bar>
+  <!-- Beautiful background with gradient -->
+  <div class="app-background" [class.searching]="loading || videos.length > 0">
+    <div class="app-background-image-filter"></div>
+  </div>
+
+  <!-- Search bar section -->
+  <div class="search-bar-aligner" [class.searching]="loading || videos.length > 0">
+    <div class="search-bar-wrapper">
+      <app-search-bar [loading]="loading" (search)="onSearch($event)"></app-search-bar>
+    </div>
+  </div>
+
+  <!-- Loading spinner -->
   <app-loading-spinner *ngIf="loading"></app-loading-spinner>
-  <app-video-list [videos]="videos" *ngIf="!loading" (videoClick)="openVideoDialog($event)"></app-video-list>
+
+  <!-- Video list section -->
+  <div class="video-list-container" *ngIf="!loading && videos.length > 0">
+    <app-video-list [videos]="videos" (videoClick)="openVideoDialog($event)"></app-video-list>
+  </div>
 </div>
 

@@ -1,5 +1,22 @@
-<div class="search-bar">
-  <input [(ngModel)]="query" placeholder="Search..." (keydown.enter)="onSearch()" />
-  <button (click)="onSearch()" [disabled]="loading">Search</button>
-
+<div class="search-bar" [class.focused]="isFocused" [class.querying]="loading" [class.searching]="loading">
+  <div class="search-bar-logo">
+    🔍
+  </div>
+  <input 
+    class="search-bar-input"
+    [(ngModel)]="query" 
+    placeholder="Search for videos..." 
+    (keydown.enter)="onSearch()"
+    (focus)="isFocused = true"
+    (blur)="isFocused = false"
+  />
+  <button 
+    class="search-bar-button" 
+    (click)="onSearch()" 
+    [disabled]="loading"
+    title="Search"
+  >
+    <span *ngIf="!loading">→</span>
+    <span *ngIf="loading" class="spin-animation">⟳</span>
+  </button>
 </div>

@@ -1,14 +1,18 @@
-<div *ngFor="let video of groupedVideos" class="video-row">
-  <div class="video-title">
-    {{ video.video }}
-  </div>
-  <div class="video-thumbnails">
-    <app-video-item
-      *ngFor="let scene of video.scenes; let sceneIndex = index"
-      [scenes]="scene"
-      [video]="video.video"
-      [index]="sceneIndex"
-      (click)="onThumbnailClick(video.video, scene.keyframeSimilarities[0]?.frameNumber / video.fps)">
-    </app-video-item>
+<div class="video-list">
+  <div *ngFor="let video of groupedVideos" class="video-row fade-in">
+    <div class="video-title">
+      {{ video.video }}
+    </div>
+    <div class="video-thumbnails">
+      <app-video-item
+        *ngFor="let scene of video.scenes; let sceneIndex = index"
+        [scenes]="scene"
+        [video]="video.video"
+        [index]="sceneIndex"
+        (click)="onThumbnailClick(video.video, scene.keyframeSimilarities[0]?.frameNumber / video.fps)"
+        class="fade-in"
+        [style.animation-delay]="sceneIndex * 0.1 + 's'">
+      </app-video-item>
+    </div>
   </div>
 </div>

@@ -7,6 +7,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class SearchBarComponent {
   query: string = '';
+  isFocused: boolean = false;
   @Input() loading: boolean = false;
   @Output() search = new EventEmitter<string>();
 
