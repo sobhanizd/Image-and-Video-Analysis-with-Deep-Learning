@@ -1,0 +1,5 @@
+<div class="search-bar">
+  <input [(ngModel)]="query" placeholder="Search..." (keydown.enter)="onSearch()" />
+  <button (click)="onSearch()" [disabled]="loading">Search</button>
+
+</div>

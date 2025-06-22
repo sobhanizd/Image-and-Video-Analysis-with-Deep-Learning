@@ -1,0 +1,8 @@
+.video-item {
+  margin: 0 10px;
+  cursor: pointer;
+}
+.video-item img {
+  width: 100px;
+  height: auto;
+}

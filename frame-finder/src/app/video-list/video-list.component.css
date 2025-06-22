@@ -1,0 +1,19 @@
+.video-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.video-title {
+  flex: 0 0 150px; /* adjust width as necessary */
+  font-weight: bold;
+}
+
+.video-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.video-thumbnails app-video-item {
+  margin-right: 10px;
+}

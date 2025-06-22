@@ -1,0 +1,6 @@
+<div class="container">
+  <app-search-bar [loading]="loading" (search)="onSearch($event)"></app-search-bar>
+  <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+  <app-video-list [videos]="videos" *ngIf="!loading" (videoClick)="openVideoDialog($event)"></app-video-list>
+</div>
+

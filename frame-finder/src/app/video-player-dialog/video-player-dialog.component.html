@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Video Player</h1>
+<div mat-dialog-content>
+  <video #videoPlayerElement *ngIf="videoSource" width="640" height="480" controls>
+    <source [src]="videoSource" type="video/mp4">
+  </video>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="extractCurrentTime()">Submit Current Time</button>
+  <button mat-button mat-dialog-close>Close</button>
+</div>

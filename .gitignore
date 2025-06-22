@@ -1,0 +1,55 @@
+/frame-finder/bazel-out
+
+# Node
+/frame-finder/node_modules
+/frame-finder/npm-debug.log
+/frame-finder/yarn-error.log
+
+# IDEs and editors
+/frame-finder/.idea/
+/frame-finder/.project
+/frame-finder/.classpath
+/frame-finder/.c9/
+/frame-finder/*.launch
+/frame-finder/.settings/
+/frame-finder/*.sublime-workspace
+
+# Visual Studio Code
+/frame-finder/.vscode/*
+/frame-finder/!.vscode/settings.json
+/frame-finder/!.vscode/tasks.json
+/frame-finder/!.vscode/launch.json
+/frame-finder/!.vscode/extensions.json
+/frame-finder/.history/*
+
+# Miscellaneous
+/frame-finder/.angular/cache
+/frame-finder/.sass-cache/
+/frame-finder/connect.lock
+/frame-finder/coverage
+/frame-finder/libpeerconnection.log
+/frame-finder/testem.log
+/frame-finder/typings
+
+# System files
+/frame-finder/.DS_Store
+/frame-finder/Thumbs.db
+
+.DS_Store
+Thumbs.db
+
+
+
+/video-retrieval-backend/node_modules/
+
+
+
+
+
+/video-retrieval-backend/preprocessing/venv/
+/video-retrieval-backend/[oldFromIDE]V3C1-100-THUMBNAILS/
+
+# Video
+video-retrieval-backend/videos/
+
+venv
