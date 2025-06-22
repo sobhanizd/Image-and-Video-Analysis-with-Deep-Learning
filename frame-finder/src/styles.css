@@ -126,6 +126,7 @@ body input, body h1, body a {
 
 .search-bar-aligner.searching {
   height: 100px;
+  padding-top: 0;
 }
 
 .search-bar-wrapper {
@@ -248,7 +249,7 @@ body input, body h1, body a {
 /* Video list styling */
 .video-list-container {
   margin: auto;
-  margin-top: 130px;
+  margin-top: 150px;
   max-width: 1000px;
   position: relative;
   z-index: 2;
@@ -454,4 +455,54 @@ body input, body h1, body a {
 
 .p-10 {
   padding: 10px;
+}
+
+/* Page title styling */
+.page-title {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 4;
+  text-align: left;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.page-title h1 {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.page-title h2 {
+  font-size: 0.9em;
+  font-weight: 400;
+  margin: 2px 0 0 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.3px;
+}
+
+/* Responsive title */
+@media (max-width: 800px) {
+  .page-title h1 {
+    font-size: 1.3em;
+  }
+  
+  .page-title h2 {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 500px) {
+  .page-title h1 {
+    font-size: 1.1em;
+  }
+  
+  .page-title h2 {
+    font-size: 0.7em;
+  }
 }

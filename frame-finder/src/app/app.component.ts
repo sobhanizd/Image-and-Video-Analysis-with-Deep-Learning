@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { VideoService } from './video.service';
 import { DresService } from './dres.service';
 import { VideoPlayerDialogComponent } from './video-player-dialog/video-player-dialog.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,26 @@ export class AppComponent {
   videos: any[] = [];
   loading: boolean = false;
 
-  constructor(private videoService: VideoService, private dresService: DresService, private dialog: MatDialog) {}
+  constructor(
+    private videoService: VideoService, 
+    private dresService: DresService, 
+    private dialog: MatDialog,
+    private titleService: Title
+  ) {
+    // Set initial title
+    this.titleService.setTitle('Group 15');
+  }
 
   onSearch(query: string) {
     this.loading = true;  // Show spinner
+    
+    // Update page title with search query
+    if (query && query.trim()) {
+      this.titleService.setTitle(`Group 15 - "${query}"`);
+    } else {
+      this.titleService.setTitle('Group 15');
+    }
+    
     this.videoService.searchVideos(query).subscribe({
       next: (data) => {
         this.videos = data;
@@ -26,6 +43,8 @@ export class AppComponent {
       error: (error) => {
         console.error('Error fetching videos', error);
         this.loading = false;  // Hide spinner
+        // Reset title on error
+        this.titleService.setTitle('Group 15');
       },
       complete: () => {
         console.log('Search completed');
